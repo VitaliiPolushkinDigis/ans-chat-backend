@@ -1,8 +1,30 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/utils/typeorm';
+import { Repository } from 'typeorm';
+import { hashPassword } from './../utils/helpers';
 import { CreateUserDetails } from './../utils/types';
 import { IUserService } from './user';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService implements IUserService {
-  createUser(userDetails: CreateUserDetails) {}
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+  ) {}
+  async createUser(userDetails: CreateUserDetails) {
+    const existingUser = await this.userRepository.findOneBy({
+      email: userDetails.email,
+    });
+    if (existingUser) {
+      throw new HttpException('User alreate exists', HttpStatus.CONFLICT);
+    }
+
+    const hashedPassword = await hashPassword(userDetails.password);
+    const newUser = this.userRepository.create({
+      ...userDetails,
+      password: hashedPassword,
+    });
+
+    return this.userRepository.save(newUser);
+  }
 }
