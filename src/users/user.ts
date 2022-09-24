@@ -1,4 +1,6 @@
-import { CreateUserDetails } from './../utils/types';
+import { User } from 'src/utils/typeorm';
+import { CreateUserDetails, FindUserParams } from './../utils/types';
 export interface IUserService {
-  createUser(userDetails: CreateUserDetails);
+  createUser(userDetails: CreateUserDetails): Promise<User>;
+  findUser(findUserParams: FindUserParams): Promise<User>;
 }

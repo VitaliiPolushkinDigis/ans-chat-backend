@@ -1,3 +1,5 @@
+import { SessionSerializer } from './utils/SessionSerializer';
+import { LocalStrategy } from './utils/LocalStrategy';
 import { Module } from '@nestjs/common';
 import { UsersModule } from 'src/users/users.module';
 import { Services } from 'src/utils/types';
@@ -8,6 +10,8 @@ import { AuthService } from './auth.service';
   imports: [UsersModule],
   controllers: [AuthController],
   providers: [
+    LocalStrategy,
+    SessionSerializer,
     {
       provide: Services.AUTH,
       useClass: AuthService,
