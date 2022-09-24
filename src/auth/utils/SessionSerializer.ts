@@ -5,13 +5,11 @@ import { PassportSerializer } from '@nestjs/passport';
 import { IUserService } from '../../users/user';
 
 import { User } from '../../utils/typeorm';
+import { IAuthService } from '../auth';
 
 @Injectable()
 export class SessionSerializer extends PassportSerializer {
-  constructor(
-    @Inject(Services.AUTH)
-    private readonly userService: IUserService,
-  ) {
+  constructor(@Inject(Services.USERS) private userService: IUserService) {
     super();
   }
   serializeUser(user: User, done: Function) {
