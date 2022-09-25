@@ -19,6 +19,9 @@ export class ConversationsController {
     @AuthUser() user: User,
     @Body() createConversationDto: CreateConversationDto,
   ) {
-    this.conversationsService.createConversation(user, createConversationDto);
+    return this.conversationsService.createConversation(
+      user,
+      createConversationDto,
+    );
   }
 }

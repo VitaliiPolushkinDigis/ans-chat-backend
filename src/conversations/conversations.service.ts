@@ -1,7 +1,7 @@
 import { IUserService } from 'src/users/user';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Conversation, User } from 'src/utils/typeorm';
+import { Conversation, User, Participant } from 'src/utils/typeorm';
 import { Services } from 'src/utils/types';
 import { Repository } from 'typeorm';
 import { CreateConversationParams } from './../utils/types';
@@ -23,17 +23,50 @@ export class ConversationsService implements IConversationsService {
     conversationParams: CreateConversationParams,
   ) {
     const userDB = await this.userService.findUser({ id: user.id });
+
+    const { authorId, recepientId } = conversationParams;
+    const participants: Participant[] = [];
     if (!userDB.participant) {
-      const newParticipant = await this.participantsService.createParticipant({
-        id: conversationParams.authorId,
-      });
-
-      userDB.participant = newParticipant;
-
-      await this.userService.saveUser(userDB);
+      const participant = await this.createParticipantAndSaveUser(
+        userDB,
+        authorId,
+      );
+      participants.push(participant);
+    } else {
+      participants.push(userDB.participant);
     }
-    const recipient = await this.participantsService.findParticipant({
-      id: conversationParams.recepientId,
+    const recipient = await this.userService.findUser({
+      id: recepientId,
     });
+
+    if (!recipient) {
+      throw new HttpException('Recipient not found.', HttpStatus.BAD_REQUEST);
+    }
+
+    if (!recipient.participant) {
+      const participant = await this.createParticipantAndSaveUser(
+        recipient,
+        recepientId,
+      );
+      participants.push(participant);
+    } else {
+      participants.push(recipient.participant);
+    }
+
+    //create conversation
+    const conversation = this.conversationRepository.create({ participants });
+
+    return this.conversationRepository.save(conversation);
+  }
+
+  public async createParticipantAndSaveUser(user: User, id: number) {
+    const participant = await this.participantsService.createParticipant({
+      id,
+    });
+
+    user.participant = participant;
+    await this.userService.saveUser(user);
+
+    return participant;
   }
 }
