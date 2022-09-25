@@ -32,7 +32,7 @@ export type FindUserParams = Partial<{
 
 export type CreateConversationParams = {
   authorId: number;
-  recepientId: number;
+  recipientId: number;
   message: string;
 };
 
