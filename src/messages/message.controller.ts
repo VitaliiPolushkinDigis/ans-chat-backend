@@ -4,19 +4,26 @@ import { MessageService } from './message.service';
 import { Routes, Services } from 'src/utils/types';
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { AuthUser } from 'src/utils/decorators';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Controller(Routes.MESSAGES)
 export class MessageController {
   constructor(
     @Inject(Services.MESSAGES) private readonly messageService: MessageService,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   @Post()
-  createMessage(
+  async createMessage(
     @AuthUser() user: User,
     @Body() createMessageDto: CreateMessageDto,
   ) {
-    return this.messageService.createMessage({ ...createMessageDto, user });
+    const msg = await this.messageService.createMessage({
+      ...createMessageDto,
+      user,
+    });
+    this.eventEmitter.emit('message.create', msg);
+    return;
   }
 
   @Get(':conversationId')
