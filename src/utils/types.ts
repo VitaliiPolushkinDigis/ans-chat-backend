@@ -3,14 +3,14 @@ export enum Routes {
   AUTH = 'auth',
   USERS = 'users',
   CONVERSATIONS = 'conversations',
-  PARTICIPANTS = 'participants',
+  MESSAGES = 'messages',
 }
 
 export enum Services {
   AUTH = 'AUTH_SERVICES',
   USERS = 'USERS_SERVICES',
   CONVERSATIONS = 'CONVERSATIONS',
-  PARTICIPANTS = 'PARTICIPANTS',
+  MESSAGES = 'MESSAGES_SERVICE',
 }
 
 export type CreateUserDetails = {
@@ -45,4 +45,10 @@ export interface AuthenticatedRequest extends Request {
 
 export type CreateParticipantParams = {
   id: number;
+};
+
+export type CreateMessageParams = {
+  content: string;
+  conversationId: number;
+  user: User;
 };

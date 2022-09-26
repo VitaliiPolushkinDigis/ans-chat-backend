@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { ConversationsModule } from './conversations/conversations.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ConversationsModule } from './conversations/conversations.module';
       synchronize: true,
     }),
     ConversationsModule,
+    MessagesModule,
   ],
   controllers: [],
   providers: [],
