@@ -3,4 +3,5 @@ import { Message } from 'src/utils/typeorm';
 
 export interface IMessageService {
   createMessage(params: CreateMessageParams): Promise<Message>;
+  getMessagesByConversationId(conversationId: number): Promise<Message[]>;
 }
