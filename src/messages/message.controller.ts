@@ -2,7 +2,15 @@ import { User } from 'src/utils/typeorm';
 import { CreateMessageDto } from './dtos/CreateMessage.dto';
 import { MessageService } from './message.service';
 import { Routes, Services } from 'src/utils/types';
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { AuthUser } from 'src/utils/decorators';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
@@ -27,10 +35,14 @@ export class MessageController {
   }
 
   @Get(':conversationId')
-  getMessagesFromConversation(
+  async getMessagesFromConversation(
     @AuthUser() user: User,
-    @Param('conversationId') conversationId: number,
+    @Param('conversationId', ParseIntPipe) conversationId: number,
   ) {
-    return this.messageService.getMessagesByConversationId(conversationId);
+    const messages = await this.messageService.getMessagesByConversationId(
+      conversationId,
+    );
+
+    return { id: conversationId, messages };
   }
 }
