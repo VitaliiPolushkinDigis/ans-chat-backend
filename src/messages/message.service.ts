@@ -1,7 +1,7 @@
 import { CreateMessageParams } from './../utils/types';
 import { IMessageService } from './message';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Message, Conversation, User } from 'src/utils/typeorm';
+import { Message, Conversation, User } from '../utils/typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { instanceToPlain } from 'class-transformer';

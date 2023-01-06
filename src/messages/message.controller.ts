@@ -1,7 +1,7 @@
-import { User } from 'src/utils/typeorm';
+import { User } from '../utils/typeorm';
 import { CreateMessageDto } from './dtos/CreateMessage.dto';
 import { MessageService } from './message.service';
-import { Routes, Services } from 'src/utils/types';
+import { Routes, Services } from '../utils/types';
 import {
   Body,
   Controller,
@@ -11,7 +11,7 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
-import { AuthUser } from 'src/utils/decorators';
+import { AuthUser } from '../utils/decorators';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Controller(Routes.MESSAGES)

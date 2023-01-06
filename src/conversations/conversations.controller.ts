@@ -7,9 +7,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AuthUser } from 'src/utils/decorators';
-import { User } from 'src/utils/typeorm';
-import { Routes } from 'src/utils/types';
+import { AuthUser } from '../utils/decorators';
+import { User } from '../utils/typeorm';
+import { Routes } from '../utils/types';
 import { AuthenticatedGuard } from './../auth/utils/Guards';
 import { Services } from './../utils/types';
 import { IConversationsService } from './conversations';

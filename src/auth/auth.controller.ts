@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
-import { IUserService } from 'src/users/user';
-import { Routes, Services } from 'src/utils/types';
+import { IUserService } from '../users/user';
+import { Routes, Services } from '../utils/types';
 import { IAuthService } from './auth';
 import { CreateUserDto } from './dtos/CreateUser.dto';
 import { AuthenticatedGuard, LocalAuthGuard } from './utils/Guards';

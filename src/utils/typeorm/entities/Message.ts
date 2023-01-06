@@ -1,5 +1,6 @@
+import { User } from './User';
 import { Conversation } from './Conversation';
-import { User } from 'src/utils/typeorm';
+
 import {
   Column,
   CreateDateColumn,

@@ -1,4 +1,4 @@
-import { User } from 'src/utils/typeorm';
+import { User } from './typeorm';
 export enum Routes {
   AUTH = 'auth',
   USERS = 'users',

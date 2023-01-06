@@ -161,9 +161,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/chat/dev/1673009953622-2023-01-06T12:59:13.622Z/main.zip"
+          "S3Key": "serverless/chat/dev/1673016561346-2023-01-06T14:49:21.346Z/chat.zip"
         },
-        "Handler": "dist/lambda.handler",
+        "Handler": "src/lambda.handler",
         "Runtime": "nodejs16.x",
         "FunctionName": "chat-dev-main",
         "MemorySize": 1024,
@@ -188,14 +188,14 @@
         "MainLogGroup"
       ]
     },
-    "MainLambdaVersion4IldFAVSeh2bUkIItuGcjzZP91G1gJuECDZ4zxVU8I": {
+    "MainLambdaVersionTLfwuNGrVC6Wp7FmFkUXVD3jPJMsicQodbbzd6ro4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "MainLambdaFunction"
         },
-        "CodeSha256": "JirJAIptl4a0CF7SxEGDF2Z195CGISuc3V1avayrjUk="
+        "CodeSha256": "nPlEGTg82RsJStH57uIP2dVFCl6WhFLZGXfZ5KS9Kdo="
       }
     },
     "ApiGatewayRestApi": {
@@ -271,7 +271,7 @@
         "MainLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1673009889585": {
+    "ApiGatewayDeployment1673016414363": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -333,7 +333,7 @@
     "MainLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "MainLambdaVersion4IldFAVSeh2bUkIItuGcjzZP91G1gJuECDZ4zxVU8I"
+        "Ref": "MainLambdaVersionTLfwuNGrVC6Wp7FmFkUXVD3jPJMsicQodbbzd6ro4"
       },
       "Export": {
         "Name": "sls-chat-dev-MainLambdaFunctionQualifiedArn"

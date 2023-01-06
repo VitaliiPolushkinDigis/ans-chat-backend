@@ -1,4 +1,4 @@
-import { Services } from 'src/utils/types';
+import { Services } from '../../utils/constants';
 import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
