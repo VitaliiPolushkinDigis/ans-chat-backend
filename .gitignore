@@ -36,3 +36,9 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 /.aws
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless

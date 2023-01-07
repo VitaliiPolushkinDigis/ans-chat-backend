@@ -95,7 +95,7 @@ async function bootstrapServer(): Promise<Server> {
 
     nestApp.use(
       session({
-        secret: COOKIE_SECRET,
+        secret: 'LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC',
         saveUninitialized: false,
         resave: false,
         cookie: {
