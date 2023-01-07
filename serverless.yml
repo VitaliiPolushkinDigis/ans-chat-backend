@@ -1,15 +1,13 @@
-service: ans-chat-backend
+service: ans-chat-depl
 
 frameworkVersion: '3'
 
 package:
- individually: true
+  individually: true
 
 plugins:
-  - serverless-plugin-typescript
-  - serverless-plugin-optimize
+  - serverless-jetpack
   - serverless-offline
-#  - serverless-jetpack
 
 provider:
   name: aws
@@ -19,10 +17,10 @@ provider:
 functions:
   main: # The name of the lambda function
     # The module 'handler' is exported in the file 'src/lambda'
-    handler: src/lambda.handler
+    handler: dist/lambda.handler
     events:
-        - http: ANY /{proxy+}
-        - http: ANY /
+      - http: ANY /{proxy+}
+      - http: ANY /
       # - http:
       #     method: any
       #     path: /{any+}
@@ -32,7 +30,6 @@ functions:
       POSTGRE_DB_USER: postgres
       POSTGRE_DB_PASSWORD: 12345678
       POSTGRE_DB_DATABASE: chat
-
 # Welcome to Serverless!
 #
 # This file is the main config file for your service.

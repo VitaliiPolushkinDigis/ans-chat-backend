@@ -9065,7 +9065,7 @@ pkg-dir@^4.2.0:
 
 plugin@^0.3.3:
   version "0.3.3"
-  resolved "https://registry.yarnpkg.com/plugin/-/plugin-0.3.3.tgz#09140a624f1754db3a833611a988ca6e474eeee1"
+  resolved "https://registry.npmjs.org/plugin/-/plugin-0.3.3.tgz#09140a624f1754db3a833611a988ca6e474eeee1"
   integrity sha512-iYStLjk2ROAxvOmC5pAuF6Bl+0LI5BGaJLReXNQkJDTuGd0ytohluSf/EE2iFaej2AdV0llOyBW/BWrLRkOqTg==
   dependencies:
     async "0.1.x"
@@ -9710,7 +9710,7 @@ serverless-jetpack@^0.11.1:
 
 serverless-offline@^12.0.4:
   version "12.0.4"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-12.0.4.tgz#93f60be0423867a5ebcf1cbc8d278e7bfa24e210"
+  resolved "https://registry.npmjs.org/serverless-offline/-/serverless-offline-12.0.4.tgz#93f60be0423867a5ebcf1cbc8d278e7bfa24e210"
   integrity sha512-G256wDHI12vE0CJ0uTJMBlfnaN7o7td4GgClvQtuedt/n7vKoUfN0och+LybD6YVGsR5h1xpYjPPPLy2QFqWaA==
   dependencies:
     "@aws-sdk/client-lambda" "^3.241.0"
@@ -9742,7 +9742,7 @@ serverless-offline@^12.0.4:
 
 serverless-plugin-optimize@^4.2.1-rc.1:
   version "4.2.1-rc.1"
-  resolved "https://registry.yarnpkg.com/serverless-plugin-optimize/-/serverless-plugin-optimize-4.2.1-rc.1.tgz#87772b579ffa019323940c363e527160e7ab20e0"
+  resolved "https://registry.npmjs.org/serverless-plugin-optimize/-/serverless-plugin-optimize-4.2.1-rc.1.tgz#87772b579ffa019323940c363e527160e7ab20e0"
   integrity sha512-vAPA2UIe4UA/ynlFYVcYlPL5KYIDogjBeBvYby9N4lVMIbgkdfGDsGoEb9ARn/SffLwFTCy1EjBOputN2d1Lnw==
   dependencies:
     "@babel/core" "^7.1.6"
@@ -9756,7 +9756,7 @@ serverless-plugin-optimize@^4.2.1-rc.1:
 
 serverless-plugin-typescript@^2.1.4:
   version "2.1.4"
-  resolved "https://registry.yarnpkg.com/serverless-plugin-typescript/-/serverless-plugin-typescript-2.1.4.tgz#6093c9c4d71f9bed980724908f9e2961ca249a4e"
+  resolved "https://registry.npmjs.org/serverless-plugin-typescript/-/serverless-plugin-typescript-2.1.4.tgz#6093c9c4d71f9bed980724908f9e2961ca249a4e"
   integrity sha512-6+IHXlsDydwDu+3ZhJiWyaFsfAoHbXdFGk10RJjipFYW+KLIoGMAxazXeiq0YQtC7uJYOtfYtGM1PtNjxOXAJg==
   dependencies:
     fs-extra "^7.0.1"
