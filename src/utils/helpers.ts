@@ -1,4 +1,5 @@
-import * as bcrypt from 'bcrypt';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require('bcrypt');
 
 export const hashPassword = async (rawPassword: string) => {
   const salt = await bcrypt.genSalt(10);
