@@ -4,8 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { TypeormStore } from 'connect-typeorm/out';
 import { Session } from './utils/typeorm';
-import * as session from 'express-session';
-import * as passport from 'passport';
+const passport = require('passport');
 import { getRepository } from 'typeorm';
 //
 async function bootstrap() {
@@ -19,7 +18,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(
-    session({
+    require('express-session')({
       secret: COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,
