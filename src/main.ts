@@ -19,6 +19,7 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    preflightContinue: true,
   });
   app.useGlobalPipes(new ValidationPipe());
 

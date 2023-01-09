@@ -90,6 +90,7 @@ async function bootstrapServer(): Promise<Server> {
       origin: '*',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
+      preflightContinue: true,
     });
     nestApp.use(eventContext());
 
