@@ -10,7 +10,7 @@ import { getRepository } from 'typeorm';
 //
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   const sessionRepository = getRepository(Session);
 

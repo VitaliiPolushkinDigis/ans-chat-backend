@@ -84,16 +84,18 @@ async function bootstrapServer(): Promise<Server> {
     const nestApp = await NestFactory.create(
       AppModule,
       new ExpressAdapter(expressApp),
+      { cors: true },
     );
+    nestApp.enableCors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    });
     nestApp.use(eventContext());
 
     const sessionRepository = getRepository(Session);
 
     nestApp.setGlobalPrefix('api');
-    nestApp.enableCors({
-      origin: ['http://localhost:3000'],
-      credentials: true,
-    });
+
     nestApp.useGlobalPipes(new ValidationPipe());
 
     nestApp.use(
