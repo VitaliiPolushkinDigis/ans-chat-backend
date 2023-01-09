@@ -1,4 +1,4 @@
-service: ans-chat-deployment
+service: ans-chat-deployment-v2
 #remove from gitignore
 
 frameworkVersion: '3'
