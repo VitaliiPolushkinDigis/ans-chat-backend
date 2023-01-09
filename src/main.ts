@@ -15,7 +15,11 @@ async function bootstrap() {
   const sessionRepository = getRepository(Session);
 
   app.setGlobalPrefix('api');
-  app.enableCors({ origin: ['http://localhost:3000'], credentials: true });
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(
