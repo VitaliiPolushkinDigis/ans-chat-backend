@@ -6,22 +6,34 @@ import { AppModule } from './app.module';
 import { TypeormStore } from 'connect-typeorm/out';
 import { Session } from './utils/typeorm';
 const passport = require('passport');
+const helmet = require('helmet');
 import { getRepository } from 'typeorm';
+
 //
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+
+  app.use(helmet());
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'http://192.168.1.5:3000',
+      'http://93.175.238.227:3000',
+    ],
+    credentials: true,
+    methods: ['OPTIONS, DELETE, POST, GET, PATCH, PUT'],
+    allowedHeaders: [
+      'Origin, Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    ],
+    optionsSuccessStatus: 204,
+  });
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const sessionRepository = getRepository(Session);
 
   app.setGlobalPrefix('api');
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-    preflightContinue: true,
-  });
-  app.useGlobalPipes(new ValidationPipe());
 
   app.use(
     require('express-session')({

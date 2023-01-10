@@ -68,6 +68,7 @@ import { Session } from './utils/typeorm';
 const express = require('express');
 
 const passport = require('passport');
+const helmet = require('helmet');
 
 // NOTE: If you get ERR_CONTENT_DECODING_FAILED in your browser, this is likely
 // due to a compressed response (e.g. gzip) which has not been handled correctly
@@ -84,21 +85,29 @@ async function bootstrapServer(): Promise<Server> {
     const nestApp = await NestFactory.create(
       AppModule,
       new ExpressAdapter(expressApp),
-      { cors: true },
     );
+    nestApp.use(helmet());
+
     nestApp.enableCors({
-      origin: '*',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      origin: [
+        'http://localhost:3000',
+        'http://192.168.1.5:3000',
+        'http://93.175.238.227:3000',
+      ],
       credentials: true,
-      preflightContinue: true,
+      methods: ['OPTIONS, DELETE, POST, GET, PATCH, PUT'],
+      allowedHeaders: [
+        'Origin, Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept, Authorization',
+      ],
+      optionsSuccessStatus: 204,
     });
     nestApp.use(eventContext());
+
+    nestApp.useGlobalPipes(new ValidationPipe());
 
     const sessionRepository = getRepository(Session);
 
     nestApp.setGlobalPrefix('api');
-
-    nestApp.useGlobalPipes(new ValidationPipe());
 
     nestApp.use(
       require('express-session')({
