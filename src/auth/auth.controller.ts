@@ -33,7 +33,7 @@ export class AuthController {
   login() {}
 
   @Get('status')
-  @UseGuards(AuthenticatedGuard)
+  //@UseGuards(AuthenticatedGuard)
   status(@Req() req: Request, @Res() res: Response) {
     res.send(req.user);
   }

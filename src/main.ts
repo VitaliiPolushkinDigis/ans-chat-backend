@@ -16,16 +16,10 @@ async function bootstrap() {
 
   app.use(helmet());
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://192.168.1.5:3000',
-      'http://93.175.238.227:3000',
-    ],
+    origin: ['http://localhost:3000'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    methods: ['OPTIONS, DELETE, POST, GET, PATCH, PUT'],
-    allowedHeaders: [
-      'Origin, Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept, Authorization',
-    ],
+    preflightContinue: true,
     optionsSuccessStatus: 204,
   });
 
