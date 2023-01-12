@@ -16,7 +16,7 @@ import { IConversationsService } from './conversations';
 import { CreateConversationDto } from './dtos/CreateConversation.dto';
 
 @Controller(Routes.CONVERSATIONS)
-@UseGuards(AuthenticatedGuard)
+// @UseGuards(AuthenticatedGuard)
 export class ConversationsController {
   constructor(
     @Inject(Services.CONVERSATIONS)

@@ -11,16 +11,10 @@ export class AuthService implements IAuthService {
   ) {}
   async validateUser(userDetails: ValidateUserDetails) {
     const user = await this.userService.findUser({ email: userDetails.email });
-    console.log('auth.service.ts user:', user);
 
     if (!user)
       throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
     const isPasswordValid = compareHash(userDetails.password, user.password);
-    console.log(
-      'auth.service.ts isPasswordValid:',
-      isPasswordValid.then((p) => p),
-    );
-    console.log('auth.service.ts user:', user);
 
     return isPasswordValid ? user : null;
   }
