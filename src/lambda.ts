@@ -90,9 +90,7 @@ async function bootstrapServer(): Promise<Server> {
 
     nestApp.enableCors({
       origin: ['http://localhost:3000'],
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
-      preflightContinue: true,
       optionsSuccessStatus: 204,
     });
     nestApp.use(eventContext());
