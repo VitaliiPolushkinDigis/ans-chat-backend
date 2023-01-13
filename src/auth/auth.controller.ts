@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Inject,
   Post,
   Req,
@@ -30,12 +31,16 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  login() {}
+  login(@Res() res: Response) {
+    return res.send(HttpStatus.OK);
+  }
 
   @Get('status')
-  //@UseGuards(AuthenticatedGuard)
-  status(@Req() req: Request, @Res() res: Response) {
-    res.send(req.user);
+  /* @UseGuards(AuthenticatedGuard) */
+  async status(@Req() req: Request, @Res() res: Response) {
+    console.log('req.user', req.user);
+
+    return res.send(req.user);
   }
 
   /*   @Post('login')
