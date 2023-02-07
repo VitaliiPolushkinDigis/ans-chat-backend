@@ -7,7 +7,10 @@ import { Services } from '../../utils/constants';
 
 @Injectable()
 export class SessionSerializer extends PassportSerializer {
-  constructor(@Inject(Services.USERS) private userService: IUserService) {
+  constructor(
+    @Inject(Services.USERS)
+    private readonly userService: IUserService,
+  ) {
     super();
   }
   serializeUser(user: User, done: Function) {
