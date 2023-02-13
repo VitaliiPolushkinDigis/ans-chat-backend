@@ -9,10 +9,12 @@ import {
   Inject,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { AuthUser } from '../utils/decorators';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { UpdateMessageDto } from './dtos/UpdateMessage.dto';
 
 @Controller(Routes.MESSAGES)
 export class MessageController {
@@ -32,6 +34,19 @@ export class MessageController {
     });
     this.eventEmitter.emit('message.create', msg);
     return;
+  }
+
+  @Patch()
+  async updateMessage(
+    @AuthUser() user: User,
+    @Body() updateMessageDto: UpdateMessageDto,
+  ) {
+    const msg = await this.messageService.updateMessage(
+      updateMessageDto.messageId,
+      updateMessageDto.content,
+    );
+
+    return msg;
   }
 
   @Get(':conversationId')

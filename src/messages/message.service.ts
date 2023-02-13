@@ -51,4 +51,13 @@ export class MessageService implements IMessageService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  updateMessage(id: number, content: string): Promise<any> {
+    return this.messageRepository.save({ id, content });
+    /*   .createQueryBuilder()
+     .update(Message)
+      .set({ content })
+      .where('id = :id', { id })
+      .execute(); */
+  }
 }
