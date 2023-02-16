@@ -8,14 +8,16 @@ import {
 } from '@nestjs/websockets';
 import { Socket } from 'dgram';
 import { Server } from 'socket.io';
+import { AuthenticatedSocket } from 'src/utils/interfaces';
 
 @WebSocketGateway({
   cors: {
     origin: ['http://localhost:3000'],
+    credentials: true,
   },
 })
 export class MessagingGateway implements OnGatewayConnection {
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: AuthenticatedSocket, ...args: any[]) {
     console.log('New Incoming Connection');
     /*     console.log(client.id); */
     client.emit('connected', { status: 'good' });

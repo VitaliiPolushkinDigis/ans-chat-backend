@@ -19,10 +19,10 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'database-1.chwzotdkgmwi.eu-central-1.rds.amazonaws.com',
+      host: 'localhost' /* 'database-1.chwzotdkgmwi.eu-central-1.rds.amazonaws.com' */,
       port: 5432,
       username: 'postgres',
-      password: '12345678',
+      password: '123' /* '12345678' */,
       database: 'chat',
       entities,
       synchronize: true,

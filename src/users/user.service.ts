@@ -35,4 +35,8 @@ export class UserService implements IUserService {
   async saveUser(user: User) {
     return this.userRepository.save(user);
   }
+
+  async getAllUsers(): Promise<User[]> {
+    return await this.userRepository.find({});
+  }
 }

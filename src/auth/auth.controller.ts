@@ -38,8 +38,6 @@ export class AuthController {
   @Get('status')
   /* @UseGuards(AuthenticatedGuard) */
   async status(@Req() req: Request, @Res() res: Response) {
-    console.log('req.user', req.user);
-
     return res.send(req.user);
   }
 
