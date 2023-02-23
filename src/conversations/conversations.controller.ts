@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Inject,
   Param,
   Post,
@@ -35,8 +37,11 @@ export class ConversationsController {
   }
 
   @Get()
-  async getConversations(@AuthUser() { id }: User) {
-    return this.conversationsService.getConversations(id);
+  async getConversations(@AuthUser() user: User) {
+    if (!user.id) {
+      throw new HttpException('Cannot get user id', HttpStatus.BAD_REQUEST);
+    }
+    return this.conversationsService.getConversations(user.id);
   }
 
   @Get(':id')
