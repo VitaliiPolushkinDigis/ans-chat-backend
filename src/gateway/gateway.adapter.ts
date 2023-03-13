@@ -44,4 +44,4 @@ export class WebSocketAdapter extends IoAdapter {
     return server;
   }
 }
-// D4 2.11.00
+// D4 2.12.20
