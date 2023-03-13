@@ -23,11 +23,11 @@ import { IGatewaySessionManager } from './gateway.session';
 export class MessagingGateway implements OnGatewayConnection {
   constructor(
     @Inject(Services.GATEWAY_SESSION)
-    private readonly session: IGatewaySessionManager,
+    private readonly sessions: IGatewaySessionManager,
   ) {}
   handleConnection(socket: AuthenticatedSocket, ...args: any[]) {
     console.log('New Incoming Connection');
-    this.session.setUserSocketId(socket.user.id, socket);
+    this.sessions.setUserSocketId(socket.user.id, socket);
     socket.emit('connected', { status: 'good' });
   }
   @WebSocketServer()
@@ -40,18 +40,22 @@ export class MessagingGateway implements OnGatewayConnection {
   @OnEvent('message.create')
   handleMessageCreateEvent(payload: Message) {
     console.log('Inside message.create');
-    console.log(payload);
     const {
       author,
       conversation: { creator, recipient },
     } = payload;
-    const authorSocket = this.session.getUserSocket(author.id);
+
+    const authorSocket = this.sessions.getUserSocket(author.id);
     const recipientSocket =
       author.id === creator.id
-        ? this.session.getUserSocket(recipient.id)
-        : this.session.getUserSocket(creator.id);
+        ? this.sessions.getUserSocket(recipient.id)
+        : this.sessions.getUserSocket(creator.id);
+    if (recipientSocket) {
+      recipientSocket.emit('onMessage', payload);
+    }
 
-    authorSocket.emit('onMessage');
-    recipientSocket.emit('onMessage');
+    if (authorSocket) {
+      authorSocket.emit('onMessage', payload);
+    }
   }
 }
