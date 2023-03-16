@@ -30,6 +30,21 @@ export type FindUserParams = Partial<{
   email: string;
 }>;
 
+export type Filter = {
+  label: string;
+  value: number | string;
+};
+export type Sort = {
+  label: string;
+  value: 'ASC' | 'DESC';
+};
+
+export type UserParams = {
+  search?: string;
+  filters?: Filter[];
+  sort?: Sort[];
+};
+
 export type CreateConversationParams = {
   recipientId: number;
   message: string;

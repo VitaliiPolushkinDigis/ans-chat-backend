@@ -1,9 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../utils/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { hashPassword } from './../utils/helpers';
-import { CreateUserDetails, FindUserParams } from './../utils/types';
+import {
+  CreateUserDetails,
+  Filter,
+  FindUserParams,
+  UserParams,
+} from './../utils/types';
 import { IUserService } from './user';
 
 @Injectable()
@@ -32,11 +37,32 @@ export class UserService implements IUserService {
     return this.userRepository.findOne(findUserParams);
   }
 
+  async findUsers(findUsersParams: UserParams): Promise<User[]> {
+    const filters = {};
+
+    if (Object.keys(findUsersParams).length) {
+      if (findUsersParams.filters?.length)
+        findUsersParams.filters.map((f) => {
+          filters[f.label] = f.value;
+        });
+    }
+
+    return this.userRepository.find({
+      where: Object.keys(filters) ? filters : {},
+    });
+  }
+
   async saveUser(user: User) {
     return this.userRepository.save(user);
   }
 
-  async getAllUsers(): Promise<User[]> {
-    return await this.userRepository.find({});
+  async searchUsers(search: string): Promise<User[]> {
+    return this.userRepository.find(
+      search
+        ? {
+            firstName: ILike(`%${search}%`),
+          }
+        : {},
+    );
   }
 }

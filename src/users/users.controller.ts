@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthUser } from '../utils/decorators';
 import { User } from '../utils/typeorm';
-import { Routes } from '../utils/types';
+import { Routes, UserParams } from '../utils/types';
 import { AuthenticatedGuard } from '../auth/utils/Guards';
 import { Services } from '../utils/types';
 import { IUserService } from './user';
@@ -35,10 +35,21 @@ export class UsersController {
   // }
 
   @Get()
-  async getUsers(@AuthUser() { id }: User) {
+  async getUsers(
+    @AuthUser() { id }: User,
+    @Body() { search }: { search?: string },
+  ) {
     if (id) {
-      return instanceToPlain(await this.usersService.getAllUsers());
+      return instanceToPlain(await this.usersService.searchUsers(search));
     }
+  }
+
+  @Get('search')
+  async findUsers(@AuthUser() user: User, @Body() params: UserParams) {
+    if (user.id) {
+      return instanceToPlain(await this.usersService.findUsers(params));
+    }
+    return '';
   }
   // @Get()
   // async getConversations(@AuthUser() { id }: User) {
