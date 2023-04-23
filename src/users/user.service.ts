@@ -1,3 +1,4 @@
+import { Profile } from './../utils/typeorm/entities/Profile';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../utils/typeorm';
@@ -15,6 +16,8 @@ import { IUserService } from './user';
 export class UserService implements IUserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
   ) {}
   async createUser(userDetails: CreateUserDetails) {
     const existingUser = await this.userRepository.findOne({
@@ -25,10 +28,23 @@ export class UserService implements IUserService {
     }
 
     const hashedPassword = await hashPassword(userDetails.password);
+
+    const newProfile = this.profileRepository.create();
+
     const newUser = this.userRepository.create({
       ...userDetails,
       password: hashedPassword,
+      profile: newProfile,
+      profileId: newProfile.id,
     });
+
+    newProfile.id = newUser.id;
+
+    newUser.profile = newProfile;
+
+    console.log(newUser);
+
+    /* newUser.profile= */
 
     return this.userRepository.save(newUser);
   }

@@ -10,6 +10,7 @@ import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
 import { GatewayModule } from './gateway/gateway.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -25,12 +26,13 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       password: '123' /* '12345678' */,
       database: 'chat',
       entities,
-      synchronize: true,
+      synchronize: false,
     }),
     ConversationsModule,
     MessagesModule,
     GatewayModule,
     EventEmitterModule.forRoot(),
+    ProfileModule,
   ],
   controllers: [],
   providers: [],

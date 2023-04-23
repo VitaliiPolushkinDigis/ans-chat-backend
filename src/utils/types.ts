@@ -4,6 +4,7 @@ export enum Routes {
   USERS = 'users',
   CONVERSATIONS = 'conversations',
   MESSAGES = 'messages',
+  PROFILES = 'profiles',
 }
 
 export enum Services {
@@ -11,6 +12,7 @@ export enum Services {
   USERS = 'USERS_SERVICES',
   CONVERSATIONS = 'CONVERSATIONS',
   MESSAGES = 'MESSAGES_SERVICE',
+  PROFILES = 'PROFILES_SERVICE',
 }
 
 export type CreateUserDetails = {
