@@ -9,6 +9,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthUser } from '../utils/decorators';
 import { User } from '../utils/typeorm';
 import { Routes } from '../utils/types';
@@ -17,6 +18,7 @@ import { Services } from './../utils/types';
 import { IConversationsService } from './conversations';
 import { CreateConversationDto } from './dtos/CreateConversation.dto';
 
+@ApiTags(Routes.CONVERSATIONS)
 @Controller(Routes.CONVERSATIONS)
 @UseGuards(AuthenticatedGuard)
 export class ConversationsController {

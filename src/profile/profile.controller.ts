@@ -16,7 +16,9 @@ import { AuthenticatedGuard } from 'src/auth/utils/Guards';
 import { Routes } from 'src/utils/types';
 import { Services } from 'src/utils/constants';
 import { instanceToPlain } from 'class-transformer';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(Routes.PROFILES)
 @Controller(Routes.PROFILES)
 export class ProfileController {
   constructor(

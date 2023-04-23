@@ -15,7 +15,9 @@ import {
 import { AuthUser } from '../utils/decorators';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UpdateMessageDto } from './dtos/UpdateMessage.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(Routes.MESSAGES)
 @Controller(Routes.MESSAGES)
 export class MessageController {
   constructor(

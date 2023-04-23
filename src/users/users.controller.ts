@@ -14,7 +14,9 @@ import { AuthenticatedGuard } from '../auth/utils/Guards';
 import { Services } from '../utils/types';
 import { IUserService } from './user';
 import { instanceToPlain } from 'class-transformer';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(Routes.USERS)
 @Controller(Routes.USERS)
 @UseGuards(AuthenticatedGuard)
 export class UsersController {
