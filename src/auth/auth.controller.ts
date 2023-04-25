@@ -33,7 +33,7 @@ export class AuthController {
     description: 'Ok',
     type: User,
   })
-  @ApiBody({ type: CreateUserDto })
+  @ApiBody({ type: CreateUserDto, description: 'CreateUserDto' })
   async registerUser(@Body() createUserDto: CreateUserDto) {
     return instanceToPlain(await this.userService.createUser(createUserDto));
   }
