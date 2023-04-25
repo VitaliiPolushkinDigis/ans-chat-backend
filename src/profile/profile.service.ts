@@ -13,7 +13,7 @@ export class ProfileService implements IProfileService {
     private readonly profileRepository: Repository<Profile>,
   ) {}
   async createProfile(createProfileDto: CreateProfileDto): Promise<Profile> {
-    const newProfile = this.profileRepository.create({});
+    const newProfile = this.profileRepository.create();
     return this.profileRepository.save(newProfile);
   }
 

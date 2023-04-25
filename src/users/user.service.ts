@@ -8,6 +8,7 @@ import {
   CreateUserDetails,
   Filter,
   FindUserParams,
+  UpdateUserDetails,
   UserParams,
 } from './../utils/types';
 import { IUserService } from './user';
@@ -29,7 +30,13 @@ export class UserService implements IUserService {
 
     const hashedPassword = await hashPassword(userDetails.password);
 
-    const newProfile = this.profileRepository.create();
+    const newProfile = this.profileRepository.create({
+      avatarUrl: userDetails.sex
+        ? userDetails?.sex === 'male'
+          ? 'https://i.pinimg.com/564x/15/e7/7e/15e77e7a76cbf41f029acf220059ce26.jpg'
+          : 'https://i.pinimg.com/564x/2b/5f/61/2b5f611332511552e3b05ec73887f105.jpg'
+        : undefined,
+    });
 
     const newUser = this.userRepository.create({
       ...userDetails,
@@ -80,5 +87,10 @@ export class UserService implements IUserService {
           }
         : {},
     );
+  }
+  async updateUser({ id, ...details }: UpdateUserDetails): Promise<User> {
+    return this.userRepository
+      .update({ id }, details)
+      .then((res) => res.raw[0]);
   }
 }

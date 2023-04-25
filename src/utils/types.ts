@@ -20,6 +20,7 @@ export type CreateUserDetails = {
   password: string;
   firstName: string;
   lastName: string;
+  sex?: 'male' | 'female';
 };
 
 export type ValidateUserDetails = {
@@ -31,6 +32,11 @@ export type FindUserParams = Partial<{
   id: number;
   email: string;
 }>;
+
+export type UpdateUserDetails = Pick<
+  CreateUserDetails,
+  'firstName' | 'lastName'
+> & { id: number };
 
 export type Filter = {
   label: string;
