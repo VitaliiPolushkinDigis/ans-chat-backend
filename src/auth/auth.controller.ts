@@ -1,3 +1,4 @@
+import { CreateProfileDto } from './../profile/dto/create-profile.dto';
 import { User } from 'src/utils/typeorm';
 import {
   Body,
@@ -10,7 +11,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { instanceToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
 import { IUserService } from '../users/user';
@@ -32,6 +33,7 @@ export class AuthController {
     description: 'Ok',
     type: User,
   })
+  @ApiBody({ type: CreateUserDto, description: 'CreateUserDto' })
   async registerUser(@Body() createUserDto: CreateUserDto) {
     return instanceToPlain(await this.userService.createUser(createUserDto));
   }
@@ -43,7 +45,7 @@ export class AuthController {
   }
 
   @Get('status')
-  /* @UseGuards(AuthenticatedGuard) */
+  @UseGuards(AuthenticatedGuard)
   async status(@Req() req: Request, @Res() res: Response) {
     return res.send(req.user);
   }

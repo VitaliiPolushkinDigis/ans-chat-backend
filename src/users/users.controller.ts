@@ -2,14 +2,17 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Inject,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
 import { AuthUser } from '../utils/decorators';
 import { User } from '../utils/typeorm';
-import { Routes, UserParams } from '../utils/types';
+import { Routes, UpdateUserDetails, UserParams } from '../utils/types';
 import { AuthenticatedGuard } from '../auth/utils/Guards';
 import { Services } from '../utils/types';
 import { IUserService } from './user';
@@ -52,6 +55,20 @@ export class UsersController {
       return instanceToPlain(await this.usersService.findUsers(params));
     }
     return '';
+  }
+
+  @Patch()
+  async updateUser(
+    @AuthUser() user: User,
+    @Body() { firstName, lastName }: UpdateUserDetails,
+  ) {
+    if (!user.id) {
+      throw new HttpException(
+        "Can't update others profile",
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return this.usersService.updateUser({ id: user.id, firstName, lastName });
   }
   // @Get()
   // async getConversations(@AuthUser() { id }: User) {
