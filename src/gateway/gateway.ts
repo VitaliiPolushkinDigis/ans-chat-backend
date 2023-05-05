@@ -33,13 +33,16 @@ export class MessagingGateway implements OnGatewayConnection {
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('createMessage')
+  /*   @SubscribeMessage('createMessage')
   handleCreateMessage(@MessageBody() data: any) {
     console.log('Create Message');
   }
+  @SubscribeMessage('message.create')
+  handleCreateMessage1(@MessageBody() data: any) {
+    this.handleMessageCreateEvent(data);
+  } */
   @OnEvent('message.create')
   handleMessageCreateEvent(payload: Message) {
-    console.log('Inside message.create');
     const {
       author,
       conversation: { creator, recipient },
