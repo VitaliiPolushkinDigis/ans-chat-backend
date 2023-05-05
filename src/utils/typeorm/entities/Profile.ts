@@ -1,4 +1,12 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Post } from './Post';
 import { User } from './User';
 
 @Entity({ name: 'profiles' })
@@ -26,4 +34,10 @@ export class Profile {
 
   @OneToOne(() => User, (user) => user.profile)
   user: User;
+
+  @OneToMany(() => Post, (post) => post.profile, {
+    cascade: ['insert', 'remove', 'update'],
+  })
+  @JoinColumn()
+  posts: Post[];
 }
