@@ -26,7 +26,7 @@ import { ProfileModule } from './profile/profile.module';
       password: '123' /* '12345678' */,
       database: 'chat',
       entities,
-      synchronize: false,
+      synchronize: true,
     }),
     ConversationsModule,
     MessagesModule,
