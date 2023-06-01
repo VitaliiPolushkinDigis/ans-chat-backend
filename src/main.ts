@@ -11,6 +11,7 @@ import { getRepository } from 'typeorm';
 import { WebSocketAdapter } from './gateway/gateway.adapter';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
+import * as session from 'express-session';
 
 //
 async function bootstrap() {
@@ -41,7 +42,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.use(
-    require('express-session')({
+    session({
       secret: COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,

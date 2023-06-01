@@ -33,31 +33,38 @@ export class MessagingGateway implements OnGatewayConnection {
   @WebSocketServer()
   server: Server;
 
-  /*   @SubscribeMessage('createMessage')
+  @SubscribeMessage('createMessage')
   handleCreateMessage(@MessageBody() data: any) {
     console.log('Create Message');
   }
   @SubscribeMessage('message.create')
   handleCreateMessage1(@MessageBody() data: any) {
+    console.log('payload 0');
     this.handleMessageCreateEvent(data);
-  } */
+  }
   @OnEvent('message.create')
   handleMessageCreateEvent(payload: Message) {
     const {
       author,
       conversation: { creator, recipient },
     } = payload;
+    console.log('payload 1');
+    console.log('sessions', this.sessions);
 
     const authorSocket = this.sessions.getUserSocket(author.id);
     const recipientSocket =
       author.id === creator.id
         ? this.sessions.getUserSocket(recipient.id)
         : this.sessions.getUserSocket(creator.id);
+
     if (recipientSocket) {
+      console.log('rec');
+
       recipientSocket.emit('onMessage', payload);
     }
 
     if (authorSocket) {
+      console.log('aut');
       authorSocket.emit('onMessage', payload);
     }
   }
