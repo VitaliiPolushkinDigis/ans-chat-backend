@@ -24,7 +24,7 @@ export class ProfileService implements IProfileService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} profile`;
+    return this.profileRepository.findOne(id);
   }
 
   async update(id: number, updateProfileDto: UpdateProfileDto) {
