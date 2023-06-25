@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Comment } from './Comment';
 import { Profile } from './Profile';
 
 @Entity({ name: 'posts' })
@@ -21,9 +29,18 @@ export class Post {
   @Column()
   likes: number;
 
-  @Column('text', { array: true })
-  comments: string[];
+  @Column()
+  views: number;
+
+  /*  @Column('text', { array: true })
+  comments: string[]; */
 
   @ManyToOne(() => Profile, (profile) => profile.posts)
   profile: Profile;
+
+  @OneToMany(() => Comment, (comment) => comment.post, {
+    cascade: ['insert', 'remove', 'update'],
+  })
+  @JoinColumn()
+  comments: Comment[];
 }

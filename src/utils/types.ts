@@ -5,6 +5,7 @@ export enum Routes {
   CONVERSATIONS = 'conversations',
   MESSAGES = 'messages',
   PROFILES = 'profiles',
+  COMMENTS = 'comments',
 }
 
 export enum Services {
@@ -13,6 +14,7 @@ export enum Services {
   CONVERSATIONS = 'CONVERSATIONS',
   MESSAGES = 'MESSAGES_SERVICE',
   PROFILES = 'PROFILES_SERVICE',
+  COMMENTS = 'COMMENTS_SERVICE',
 }
 
 export type CreateUserDetails = {
@@ -74,4 +76,10 @@ export type CreateMessageParams = {
   content: string;
   conversationId: number;
   user: User;
+};
+
+export type CreateCommentParams = {
+  content: string;
+  postId: number;
+  commentId?: number;
 };

@@ -12,6 +12,7 @@ import { GatewayModule } from './gateway/gateway.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ProfileModule } from './profile/profile.module';
 import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { PostsModule } from './posts/posts.module';
     EventEmitterModule.forRoot(),
     ProfileModule,
     PostsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],

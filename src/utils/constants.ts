@@ -5,6 +5,7 @@ export enum Routes {
   MESSAGES = 'messages',
   PROFILE_SERVICE = 'profiles',
   POSTS = 'posts',
+  COMMENTS = 'comments',
 }
 
 export enum Services {

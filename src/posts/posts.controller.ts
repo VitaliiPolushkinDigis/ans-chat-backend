@@ -1,3 +1,4 @@
+import { User } from 'src/utils/typeorm';
 import {
   Controller,
   Get,
@@ -11,6 +12,9 @@ import {
 
 import { ApiTags } from '@nestjs/swagger';
 import { Routes, Services } from 'src/utils/constants';
+import { AuthUser } from 'src/utils/decorators';
+import { CreatePostDto } from './dtos/create-post';
+import { UpdatePostDto } from './dtos/update-post';
 import { PostsService } from './posts.service';
 
 @ApiTags(Routes.POSTS)
@@ -21,11 +25,14 @@ export class PostsController {
   ) {}
 
   @Post()
-  create(@Body() createPostDto: any) {
-    return this.postsService.createPost(/* createPostDto */);
+  create(
+    @AuthUser() { profileId }: User,
+    @Body() createPostDto: CreatePostDto,
+  ) {
+    return this.postsService.createPost(profileId, createPostDto);
   }
 
-  /*  @Get()
+  @Get()
   findAll() {
     return this.postsService.findAll();
   }
@@ -33,6 +40,14 @@ export class PostsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(+id);
+  }
+
+  @Get('/profile/:id')
+  findAllProfilePosts(@Param('id') id: string) {
+    const req = this.postsService.findAllProfilePosts(+id);
+    console.log('------------req', req);
+
+    return req;
   }
 
   @Patch(':id')
@@ -43,5 +58,5 @@ export class PostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(+id);
-  } */
+  }
 }
