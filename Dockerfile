@@ -4,6 +4,8 @@ FROM node:18-alpine AS build
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY yarn*.lock ./
+COPY yarn.lock ./
 
 RUN npm install
 
@@ -22,6 +24,8 @@ ENV NODE_ENV=${NODE_ENV}
 COPY --from=build /usr/src/app/dist ./dist
 
 COPY package*.json ./
+COPY yarn*.lock ./
+COPY yarn.lock ./
 
 RUN npm install --only=production
 
