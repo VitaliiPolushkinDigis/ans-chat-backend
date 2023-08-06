@@ -12,7 +12,7 @@ COPY . .
 RUN npm run build
 
 #prod stage
-FROM node:16 AS build
+FROM node:16
 
 WORKDIR /usr/src/app
 

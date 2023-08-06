@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
@@ -17,10 +17,10 @@ services:
 
   database:
     image: postgres
+    container_name: postgres
     restart: always
     environment:
       - POSTGRES_PASSWORD=123
-    container_name: postgres
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
