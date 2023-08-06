@@ -2222,10 +2222,10 @@
     multer "1.4.4-lts.1"
     tslib "2.4.0"
 
-"@nestjs/platform-socket.io@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-socket.io/-/platform-socket.io-10.0.0.tgz#dbb4604d5a6cf09454f3fd0f64d23fb0790d95f8"
-  integrity sha512-sYW72flbnlfw7VcBuEamUp45nNr/OUGzBvqfnmraYJ9aJDqcd5vM0w2zn/S6YvLu2ZEgGrnyx8KEIXYf5iMfuQ==
+"@nestjs/platform-socket.io@9.4.3":
+  version "9.4.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-socket.io/-/platform-socket.io-9.4.3.tgz#c2d7e45548afc5c13d549b2085e663e67b43f7ef"
+  integrity sha512-l5aKaavjiZIFZf/yPLzyVqe2zTaNzSW1EobnvezLw+s9pCFzlotS/pn8mDEhChNA6DWMLrmp5aGYRFLEifqZfg==
   dependencies:
     socket.io "4.6.2"
     tslib "2.5.3"
@@ -2273,14 +2273,14 @@
   dependencies:
     uuid "8.3.2"
 
-"@nestjs/websockets@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/websockets/-/websockets-10.0.0.tgz#06acace22c7093c345960104b8b7ba67e8b4f193"
-  integrity sha512-Qv7KKdJ7bNnR2jaA8rXhhqTuwbFoAV29TKA1EZIUWGL6OHb2do/JB14mJ9yDQfi1fbfb0xjxWno7iPgaO+LHUw==
+"@nestjs/websockets@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/websockets/-/websockets-9.0.0.tgz#7244a796d581e52c91037d75f09df57d1d879eea"
+  integrity sha512-ZSIyDbVkVnRzEUC5iuhQu35k4PUQdiMCgDmQpKRrTj62Co9yaCjLeJiEuEvACqbPdpTh3IDCj1kdmerTotMKtA==
   dependencies:
     iterare "1.2.1"
     object-hash "3.0.0"
-    tslib "2.5.3"
+    tslib "2.4.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
