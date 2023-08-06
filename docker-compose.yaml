@@ -1,0 +1,39 @@
+versio: '3'
+
+services:
+  backend:
+    build: ./
+    container_name: nestjs_api
+    environment:
+      - PORT=3001
+      - COOKIE_SECRET=LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC
+      - DB_HOST=postgres
+    ports:
+      - '3001:3001'
+    depends_on:
+      - database
+    networks:
+      - nestjs_network
+
+  database:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=123
+    container_name: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - nestjs_network
+
+   adminer:
+    image: adminer
+    restart: always
+    ports:
+        - 8080:8080
+
+networks:
+  nestjs_network:
+    driver: bridge

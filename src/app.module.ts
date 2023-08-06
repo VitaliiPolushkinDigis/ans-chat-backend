@@ -22,8 +22,8 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost' /* 'database-1.chwzotdkgmwi.eu-central-1.rds.amazonaws.com' */,
-      port: 5432,
+      host: process.env.DB_HOST,
+      /* 'localhost' */ /* 'database-1.chwzotdkgmwi.eu-central-1.rds.amazonaws.com' */ port: 5432,
       username: 'postgres',
       password: '123' /* '12345678' */,
       database: 'chat',
