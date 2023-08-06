@@ -7,7 +7,7 @@ COPY package*.json ./
 COPY yarn*.lock ./
 COPY yarn.lock ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
@@ -27,7 +27,7 @@ COPY package*.json ./
 COPY yarn*.lock ./
 COPY yarn.lock ./
 
-RUN npm install --only=production
+RUN npm install --legacy-peer-deps --only=production
 
 RUN rm package*.json
 
