@@ -1,4 +1,4 @@
-versio: '3'
+version: '3'
 
 services:
   backend:
@@ -27,12 +27,6 @@ services:
       - '5432:5432'
     networks:
       - nestjs_network
-
-   adminer:
-    image: adminer
-    restart: always
-    ports:
-        - 8080:8080
 
 networks:
   nestjs_network:
