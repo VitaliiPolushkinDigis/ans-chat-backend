@@ -43,7 +43,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: COOKIE_SECRET,
+      secret: 'LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC' || COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,
       name: 'CHAT_APP_SESSION_ID',
@@ -57,9 +57,9 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  await app.listen(PORT, () =>
+  await app.listen(3001, () =>
     console.log(
-      `-------App is running on http://localhost:${PORT}`,
+      `-------App is running on http://localhost:${3001}`,
       process.env.NODE_ENV,
     ),
   );
