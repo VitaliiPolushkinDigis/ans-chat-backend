@@ -28,11 +28,11 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
-  app.enableCors(/* {
-    origin: ['http://localhost:3000'],
+  app.enableCors({
+    origin: ['https://ans-chat-front.vercel.app'],
     credentials: true,
     optionsSuccessStatus: 204,
-  } */);
+  });
 
   app.useGlobalPipes(new ValidationPipe());
 
