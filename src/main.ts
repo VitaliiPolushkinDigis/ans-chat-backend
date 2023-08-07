@@ -12,12 +12,13 @@ import { WebSocketAdapter } from './gateway/gateway.adapter';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
 import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
 
 //
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
   const app = await NestFactory.create(AppModule);
-
+  app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Blind Talk')
     .setDescription('Blind Talk API description')
@@ -32,11 +33,12 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
+      'http://localhost:3000/',
       'https://ans-chat-front.vercel.app/',
       'https://ans-chat-front.vercel.app',
     ],
     credentials: true,
-    optionsSuccessStatus: 204,
+    optionsSuccessStatus: 200,
   });
 
   app.useGlobalPipes(new ValidationPipe());
@@ -54,8 +56,8 @@ async function bootstrap() {
       name: 'CHAT_APP_SESSION_ID',
       cookie: {
         maxAge: 86400000 * 3, // cookie expires 3 day later
-        sameSite: 'none',
-        secure: true,
+        /* sameSite: 'none',
+        secure: true, */
       },
       store: new TypeormStore().connect(sessionRepository),
     }),
