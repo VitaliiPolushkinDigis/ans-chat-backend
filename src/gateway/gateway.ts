@@ -16,7 +16,11 @@ import { IGatewaySessionManager } from './gateway.session';
 
 @WebSocketGateway({
   cors: {
-    origin: ['http://localhost:3000'],
+    origin: [
+      'https://ans-chat-front.vercel.app/',
+      'https://ans-chat-front.vercel.app',
+      'https://ans-chat-front.vercel.app:3000',
+    ],
     credentials: true,
   },
 })

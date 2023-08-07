@@ -30,7 +30,11 @@ async function bootstrap() {
   app.use(helmet());
 
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'https://ans-chat-front.vercel.app/',
+      'https://ans-chat-front.vercel.app',
+    ],
     credentials: true,
     optionsSuccessStatus: 204,
   });
