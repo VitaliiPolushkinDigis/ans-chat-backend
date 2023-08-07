@@ -57,9 +57,10 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  await app.listen(3001, () =>
+
+  await app.listen(PORT || 3000, () =>
     console.log(
-      `-------App is running on http://localhost:${3001}`,
+      `-------App is running on http://localhost:${PORT||3000}`,
       process.env.NODE_ENV,
     ),
   );
