@@ -28,6 +28,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+
   app.enableCors({
     origin: ['http://localhost:3000'],
     credentials: true,
@@ -49,6 +50,7 @@ async function bootstrap() {
       name: 'CHAT_APP_SESSION_ID',
       cookie: {
         maxAge: 86400000 * 3, // cookie expires 3 day later
+        sameSite: 'none',
       },
       store: new TypeormStore().connect(sessionRepository),
     }),
@@ -57,10 +59,9 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-
   await app.listen(PORT || 3000, () =>
     console.log(
-      `-------App is running on http://localhost:${PORT||3000}`,
+      `-------App is running on http://localhost:${PORT || 3000}`,
       process.env.NODE_ENV,
     ),
   );
