@@ -20,9 +20,7 @@ import { CreateConversationDto } from './dtos/CreateConversation.dto';
 
 @ApiTags(Routes.CONVERSATIONS)
 @Controller(Routes.CONVERSATIONS)
-@UseGuards(
-  process.env.NODE_ENV === 'production' ? undefined : AuthenticatedGuard,
-)
+@UseGuards(AuthenticatedGuard)
 export class ConversationsController {
   constructor(
     @Inject(Services.CONVERSATIONS)
