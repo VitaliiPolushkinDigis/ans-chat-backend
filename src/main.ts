@@ -32,7 +32,7 @@ async function bootstrap() {
     origin: ['https://ans-chat-front.vercel.app'],
     credentials: true,
     optionsSuccessStatus: 204,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept',
   });
 
