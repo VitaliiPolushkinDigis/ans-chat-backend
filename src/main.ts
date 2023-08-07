@@ -43,7 +43,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: COOKIE_SECRET,
+      secret: 'LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC' || COOKIE_SECRET,
       saveUninitialized: false,
       resave: false,
       name: 'CHAT_APP_SESSION_ID',
