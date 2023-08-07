@@ -13,11 +13,12 @@ import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
 import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 //
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Blind Talk')
@@ -29,6 +30,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+  app.set('trust proxy', 1);
 
   app.enableCors({
     origin: [
