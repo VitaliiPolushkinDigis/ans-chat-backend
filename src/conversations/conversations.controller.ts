@@ -21,7 +21,7 @@ import { CreateConversationDto } from './dtos/CreateConversation.dto';
 @ApiTags(Routes.CONVERSATIONS)
 @Controller(Routes.CONVERSATIONS)
 @UseGuards(
-  process.env.NODE_ENV === 'production' ? AuthenticatedGuard : undefined,
+  process.env.NODE_ENV === 'production' ? undefined : AuthenticatedGuard,
 )
 export class ConversationsController {
   constructor(
