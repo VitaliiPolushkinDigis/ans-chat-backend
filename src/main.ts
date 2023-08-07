@@ -33,7 +33,7 @@ async function bootstrap() {
     credentials: true,
     optionsSuccessStatus: 204,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept',
+    allowedHeaders: '*',
   });
 
   app.useGlobalPipes(new ValidationPipe());
