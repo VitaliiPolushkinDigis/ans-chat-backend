@@ -32,8 +32,6 @@ async function bootstrap() {
     origin: ['https://ans-chat-front.vercel.app'],
     credentials: true,
     optionsSuccessStatus: 204,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: '*',
   });
 
   app.useGlobalPipes(new ValidationPipe());
