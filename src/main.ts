@@ -60,6 +60,7 @@ async function bootstrap() {
         maxAge: 86400000 * 3, // cookie expires 3 day later
         sameSite: 'none',
         secure: true,
+        httpOnly: false,
       },
       store: new TypeormStore().connect(sessionRepository),
     }),
