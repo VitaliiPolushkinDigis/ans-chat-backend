@@ -17,7 +17,7 @@ export class Session implements ISession {
   id: string;
 
   @Column('text')
-  json: string;
+  json?: string;
 
   @DeleteDateColumn()
   destroyedAt: Date;

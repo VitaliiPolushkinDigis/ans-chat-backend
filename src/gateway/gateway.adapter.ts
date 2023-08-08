@@ -8,42 +8,32 @@ import { plainToInstance } from 'class-transformer';
 
 export class WebSocketAdapter extends IoAdapter {
   createIOServer(port: number, options?: any) {
-    const sessionsRepository = getRepository(Session);
-
+    const sessionRepository = getRepository(Session);
     const server = super.createIOServer(port, options);
     server.use(async (socket: AuthenticatedSocket, next) => {
+      console.log('Inside Websocket Adapter');
       const { cookie: clientCookie } = socket.handshake.headers;
-
       if (!clientCookie) {
-        return next(new Error('Not Authenticated!'));
+        console.log('Client has no cookies');
+        return next(new Error('Not Authenticated. No cookies were sent'));
       }
       const { CHAT_APP_SESSION_ID } = cookie.parse(clientCookie);
       if (!CHAT_APP_SESSION_ID) {
-        return next(
-          new Error('CHAT_APP_SESSION_ID does not exists, Not Authenticated!'),
-        );
+        console.log('CHAT_APP_SESSION_ID DOES NOT EXIST');
+        return next(new Error('Not Authenticated'));
       }
-
       const signedCookie = cookieParser.signedCookie(
         CHAT_APP_SESSION_ID,
-        'LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC' || process.env.COOKIE_SECRET,
+        process.env.COOKIE_SECRET,
       );
-
-      if (!signedCookie) {
-        return next(new Error('Error signing cookie'));
-      }
-
-      const sessionDB = await sessionsRepository.findOne({ id: signedCookie });
-
+      if (!signedCookie) return next(new Error('Error signing cookie'));
+      const sessionDB = await sessionRepository.findOne({ id: signedCookie });
       if (!sessionDB) return next(new Error('No session found'));
+      console.log('sessionDB', sessionDB);
 
       const userFromJson = JSON.parse(sessionDB.json);
-
-      console.log('userFromJson', userFromJson);
-
       if (!userFromJson.passport || !userFromJson.passport.user)
         return next(new Error('Passport or User object does not exist.'));
-
       const userDB = plainToInstance(
         User,
         JSON.parse(sessionDB.json).passport.user,
@@ -54,4 +44,3 @@ export class WebSocketAdapter extends IoAdapter {
     return server;
   }
 }
-// D4 2.12.20
