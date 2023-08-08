@@ -38,6 +38,8 @@ async function bootstrap() {
       'http://localhost:3000/',
       'https://ans-chat-front.vercel.app/',
       'https://ans-chat-front.vercel.app',
+      'https://ans-chat-front.vercel.app:3000',
+      'https://ans-chat-front.vercel.app:8000',
     ],
     credentials: true,
     optionsSuccessStatus: 200,
