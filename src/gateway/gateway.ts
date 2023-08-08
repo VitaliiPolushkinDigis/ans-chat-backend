@@ -20,6 +20,10 @@ import { IGatewaySessionManager } from './gateway.session';
       'https://ans-chat-front.vercel.app/',
       'https://ans-chat-front.vercel.app',
       'https://ans-chat-front.vercel.app:3000',
+      'https://ans-chat-front.vercel.app:8000',
+      'ans-chat-front.vercel.app:3000',
+      'ans-chat-front.vercel.app:8000',
+      'http://localhost:3000',
     ],
     credentials: true,
   },
@@ -41,34 +45,24 @@ export class MessagingGateway implements OnGatewayConnection {
   handleCreateMessage(@MessageBody() data: any) {
     console.log('Create Message');
   }
-  @SubscribeMessage('message.create')
-  handleCreateMessage1(@MessageBody() data: any) {
-    console.log('payload 0');
-    this.handleMessageCreateEvent(data);
-  }
   @OnEvent('message.create')
   handleMessageCreateEvent(payload: Message) {
+    console.log('Inside message.create');
     const {
       author,
       conversation: { creator, recipient },
     } = payload;
-    console.log('payload 1');
-    console.log('sessions', this.sessions);
 
     const authorSocket = this.sessions.getUserSocket(author.id);
     const recipientSocket =
       author.id === creator.id
         ? this.sessions.getUserSocket(recipient.id)
         : this.sessions.getUserSocket(creator.id);
-
     if (recipientSocket) {
-      console.log('rec');
-
       recipientSocket.emit('onMessage', payload);
     }
 
     if (authorSocket) {
-      console.log('aut');
       authorSocket.emit('onMessage', payload);
     }
   }

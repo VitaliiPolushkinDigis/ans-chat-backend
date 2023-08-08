@@ -8,20 +8,21 @@ import { plainToInstance } from 'class-transformer';
 
 export class WebSocketAdapter extends IoAdapter {
   createIOServer(port: number, options?: any) {
-    const sessionsRepository = getRepository(Session);
+    const sessionRepository = getRepository(Session);
 
     const server = super.createIOServer(port, options);
     server.use(async (socket: AuthenticatedSocket, next) => {
+      console.log('Inside Websocket Adapter');
       const { cookie: clientCookie } = socket.handshake.headers;
 
       if (!clientCookie) {
-        return next(new Error('Not Authenticated!'));
+        console.log('Client has no cookies');
+        return next(new Error('Not Authenticated. No cookies were sent'));
       }
       const { CHAT_APP_SESSION_ID } = cookie.parse(clientCookie);
       if (!CHAT_APP_SESSION_ID) {
-        return next(
-          new Error('CHAT_APP_SESSION_ID does not exists, Not Authenticated!'),
-        );
+        console.log('CHAT_APP_SESSION_ID DOES NOT EXIST');
+        return next(new Error('Not Authenticated'));
       }
 
       const signedCookie = cookieParser.signedCookie(
@@ -29,11 +30,9 @@ export class WebSocketAdapter extends IoAdapter {
         'LASJDLA3123LSDFSDF78SDFS5DFMHJ123CCC' || process.env.COOKIE_SECRET,
       );
 
-      if (!signedCookie) {
-        return next(new Error('Error signing cookie'));
-      }
+      if (!signedCookie) return next(new Error('Error signing cookie'));
 
-      const sessionDB = await sessionsRepository.findOne({ id: signedCookie });
+      const sessionDB = await sessionRepository.findOne({ id: signedCookie });
 
       if (!sessionDB) return next(new Error('No session found'));
 
