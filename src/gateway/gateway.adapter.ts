@@ -10,7 +10,7 @@ export class WebSocketAdapter extends IoAdapter {
   createIOServer(port: number, options?: any) {
     const sessionRepository = getRepository(Session);
 
-    const server = super.createIOServer(port, options);
+    const server = super.createIOServer(port, { ...options, cors: true });
     server.use(async (socket: AuthenticatedSocket, next) => {
       console.log('Inside Websocket Adapter');
       const { cookie: clientCookie } = socket.handshake.headers;

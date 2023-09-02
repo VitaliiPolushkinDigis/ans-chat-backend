@@ -18,7 +18,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 //
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
   app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Blind Talk')
