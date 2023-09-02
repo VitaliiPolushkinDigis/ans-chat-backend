@@ -1,28 +1,37 @@
+import { Inject } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
-  WebSocketGateway,
-  WebSocketServer,
-  SubscribeMessage,
   MessageBody,
   OnGatewayConnection,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Socket } from 'dgram';
+import { Server } from 'socket.io';
+import { Services } from 'src/utils/constants';
+import { AuthenticatedSocket } from 'src/utils/interfaces';
+import { Message } from 'src/utils/typeorm';
+import { IGatewaySessionManager } from './gateway.session';
 
 @WebSocketGateway({
   cors: {
     origin: [
       'http://localhost:3000',
       'https://front-react-359f97dc238f.herokuapp.com',
-      'https://front-react-359f97dc238f.herokuapp.com/',
     ],
     credentials: true,
   },
 })
 export class MessagingGateway implements OnGatewayConnection {
-  handleConnection(client: Socket, ...args: any[]) {
+  constructor(
+    @Inject(Services.GATEWAY_SESSION)
+    private readonly sessions: IGatewaySessionManager,
+  ) {}
+  handleConnection(socket: AuthenticatedSocket, ...args: any[]) {
     console.log('New Incoming Connection');
-    console.log(client.id);
-    client.emit('connected', { status: 'good' });
+    this.sessions.setUserSocketId(socket.user.id, socket);
+    socket.emit('connected', { status: 'good' });
   }
   @WebSocketServer()
   server: Server;
@@ -31,12 +40,25 @@ export class MessagingGateway implements OnGatewayConnection {
   handleCreateMessage(@MessageBody() data: any) {
     console.log('Create Message');
   }
-
   @OnEvent('message.create')
-  handleMessageCreateEvent(payload: any) {
+  handleMessageCreateEvent(payload: Message) {
     console.log('Inside message.create');
-    console.log(payload);
-    this.server.emit('onMessage', payload);
-    return { payload, text: 'done' };
+    const {
+      author,
+      conversation: { creator, recipient },
+    } = payload;
+
+    const authorSocket = this.sessions.getUserSocket(author.id);
+    const recipientSocket =
+      author.id === creator.id
+        ? this.sessions.getUserSocket(recipient.id)
+        : this.sessions.getUserSocket(creator.id);
+    if (recipientSocket) {
+      recipientSocket.emit('onMessage', payload);
+    }
+
+    if (authorSocket) {
+      authorSocket.emit('onMessage', payload);
+    }
   }
 }
