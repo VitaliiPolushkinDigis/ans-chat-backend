@@ -22,27 +22,14 @@ async function bootstrap() {
     cors: {
       origin: [
         'http://localhost:3000',
-        'http://localhost:3000/',
-        'https://ans-chat-front.vercel.app/',
-        'https://ans-chat-front.vercel.app',
-        'https://ans-chat-front.vercel.app:3000',
-        'https://ans-chat-front.vercel.app:8000',
         'https://front-react-359f97dc238f.herokuapp.com',
-        'https://front-react-359f97dc238f.herokuapp.com/',
       ],
       credentials: true,
       optionsSuccessStatus: 200,
     },
   });
-  app.use(cookieParser());
-  const config = new DocumentBuilder()
-    .setTitle('Blind Talk')
-    .setDescription('Blind Talk API description')
-    .setVersion('1.0')
-    .addTag('dev')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  const sessionRepository = getRepository(Session);
+  app.setGlobalPrefix('api');
 
   app.use(helmet());
   app.set('trust proxy', 1);
@@ -50,24 +37,13 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'http://localhost:3000/',
-      'https://ans-chat-front.vercel.app/',
-      'https://ans-chat-front.vercel.app',
-      'https://ans-chat-front.vercel.app:3000',
-      'https://ans-chat-front.vercel.app:8000',
       'https://front-react-359f97dc238f.herokuapp.com',
-      'https://front-react-359f97dc238f.herokuapp.com/',
     ],
     credentials: true,
     optionsSuccessStatus: 200,
   });
 
   app.useGlobalPipes(new ValidationPipe());
-
-  const sessionRepository = getRepository(Session);
-  const adapter = new WebSocketAdapter(app);
-  app.useWebSocketAdapter(adapter);
-  app.setGlobalPrefix('api');
 
   app.use(
     session({
@@ -84,6 +60,19 @@ async function bootstrap() {
       store: new TypeormStore().connect(sessionRepository),
     }),
   );
+
+  app.use(cookieParser());
+  const config = new DocumentBuilder()
+    .setTitle('Blind Talk')
+    .setDescription('Blind Talk API description')
+    .setVersion('1.0')
+    .addTag('dev')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  const adapter = new WebSocketAdapter(app);
+  app.useWebSocketAdapter(adapter);
 
   app.use(passport.initialize());
   app.use(passport.session());

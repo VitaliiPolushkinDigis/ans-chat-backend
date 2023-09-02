@@ -10,7 +10,17 @@ export class WebSocketAdapter extends IoAdapter {
   createIOServer(port: number, options?: any) {
     const sessionRepository = getRepository(Session);
 
-    const server = super.createIOServer(port, { ...options, cors: true });
+    const server = super.createIOServer(port, {
+      ...options,
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'https://front-react-359f97dc238f.herokuapp.com',
+        ],
+        credentials: true,
+        optionsSuccessStatus: 200,
+      },
+    });
     server.use(async (socket: AuthenticatedSocket, next) => {
       console.log('Inside Websocket Adapter');
       const { cookie: clientCookie } = socket.handshake.headers;

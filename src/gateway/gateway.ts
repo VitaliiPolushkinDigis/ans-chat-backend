@@ -17,15 +17,8 @@ import { IGatewaySessionManager } from './gateway.session';
 @WebSocketGateway({
   cors: {
     origin: [
-      'https://ans-chat-front.vercel.app/',
-      'https://ans-chat-front.vercel.app',
-      'https://ans-chat-front.vercel.app:3000',
-      'https://ans-chat-front.vercel.app:8000',
-      'ans-chat-front.vercel.app:3000',
-      'ans-chat-front.vercel.app:8000',
       'http://localhost:3000',
       'https://front-react-359f97dc238f.herokuapp.com',
-      'https://front-react-359f97dc238f.herokuapp.com/',
     ],
     credentials: true,
   },
