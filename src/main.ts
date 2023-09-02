@@ -19,7 +19,20 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: true,
+    cors: {
+      origin: [
+        'http://localhost:3000',
+        'http://localhost:3000/',
+        'https://ans-chat-front.vercel.app/',
+        'https://ans-chat-front.vercel.app',
+        'https://ans-chat-front.vercel.app:3000',
+        'https://ans-chat-front.vercel.app:8000',
+        'https://front-react-359f97dc238f.herokuapp.com',
+        'https://front-react-359f97dc238f.herokuapp.com/',
+      ],
+      credentials: true,
+      optionsSuccessStatus: 200,
+    },
   });
   app.use(cookieParser());
   const config = new DocumentBuilder()
