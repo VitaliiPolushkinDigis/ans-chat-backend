@@ -8,7 +8,7 @@ import { Session } from './utils/typeorm';
 const passport = require('passport');
 const helmet = require('helmet');
 import { getRepository } from 'typeorm';
-import { WebSocketAdapter } from './gateway/gateway.adapter';
+/* import { WebSocketAdapter } from './gateway/gateway.adapter'; */
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
 import * as session from 'express-session';
@@ -71,8 +71,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  const adapter = new WebSocketAdapter(app);
-  app.useWebSocketAdapter(adapter);
+  /* const adapter = new WebSocketAdapter(app);
+  app.useWebSocketAdapter(adapter); */
 
   app.use(passport.initialize());
   app.use(passport.session());
